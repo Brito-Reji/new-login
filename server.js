@@ -34,15 +34,18 @@ app.get('/',(req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  let {invalid} = req.query
-  console.log(invalid)
+  let {invalid,empty} = req.query
+  
   if (req.session.username) return res.redirect('/');
-  res.render('login', { invalidcred: (invalid==1)?true:false });
+
+  res.render('login', { invalidcred: (invalid==1)?true:false,empty:(empty==1)?true:false });
 });
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-
+ if (username ==''||password=='') {
+  return res.redirect('login?empty=1')
+ }
   if (username == fakedata.name && password == fakedata.password) {
     req.session.username = username;
     return res.redirect('/');

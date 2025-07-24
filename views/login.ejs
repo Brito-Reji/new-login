@@ -20,7 +20,6 @@
                     type="text"
                     id="username"
                     name="username"
-                    required
                     class="form-control form-control-lg bg-white text-dark border-dark"
                     placeholder="Enter your username"
                 />
@@ -32,13 +31,14 @@
                     type="password"
                     id="password"
                     name="password"
-                    required
                     class="form-control form-control-lg bg-white text-dark border-dark"
                     placeholder="Enter your password"
                 />
                 <% if (typeof invalidcred != 'undefined' && invalidcred) { %>
                     <p class="text-danger mt-2">Wrong username or password</p>
-                <% } %>
+                <% } else if (typeof empty != 'undefined' && empty) { %>
+                     <p class="text-danger mt-2">Fields cannot be empty</p>
+                 <% } %>
             </div>
             <!-- Login Button -->
             <div class="mb-3">
