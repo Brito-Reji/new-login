@@ -5,7 +5,7 @@ const path = require('path');
 const fakedata = require('./fakedata.json');
 
 const app = express();
-const router = express.Router()
+
 
 app.use(session({
   secret: 'password',        
@@ -42,7 +42,9 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  const { username, password } = req.body;
+  let { username, password } = req.body;
+    username = username.trim()
+    password = password.trim()
  if (username ==''||password=='') {
   return res.redirect('login?empty=1')
  }
