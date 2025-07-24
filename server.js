@@ -34,8 +34,10 @@ app.get('/',(req, res) => {
 });
 
 app.get('/login', (req, res) => {
+  let {invalid} = req.query
+  console.log(invalid)
   if (req.session.username) return res.redirect('/');
-  res.render('login', { invalidcred: false });
+  res.render('login', { invalidcred: (invalid==1)?true:false });
 });
 
 app.post('/login', (req, res) => {
@@ -45,7 +47,7 @@ app.post('/login', (req, res) => {
     req.session.username = username;
     return res.redirect('/');
   } else {
-    return res.render('login', { invalidcred: true });
+    return res.redirect('login?invalid=1');
   }
 });
 
